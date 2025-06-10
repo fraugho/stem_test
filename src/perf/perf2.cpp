@@ -8,7 +8,7 @@
 #include "../../lib/ole/english_stem.h"
 
 // Function prototypes
-std::wstring stringToWString(const std::string& str);
+std::wstring str_to_wstr(const std::string& str);
 void test_snow(const std::vector<std::wstring>& words);
 void test_ole(const std::vector<std::wstring>& words);
 std::vector<std::wstring> get_wstr(const std::string& file_name);
@@ -22,35 +22,35 @@ int main() {
 }
 
 // Convert UTF-8 string to wide string
-std::wstring stringToWString(const std::string& str) {
+std::wstring str_to_wstr(const std::string& str) {
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
     return converter.from_bytes(str);
 }
 
 // Test Snowball Stemmer
 void test_snow(const std::vector<std::wstring>& words) {
-    struct sb_stemmer* snow_stemmer = sb_stemmer_new("english", 0);
+    struct sb_stemmer* eng_stemmer = sb_stemmer_new("english", 0);
     auto start = std::chrono::high_resolution_clock::now();
     
     for (const auto& word : words) {
         // Convert wstring to sb_symbol* for Snowball
-        sb_stemmer_stem(snow_stemmer, (const sb_symbol*)word.c_str(), word.length());
+        sb_stemmer_stem(eng_stemmer, (const sb_symbol*)word.c_str(), word.length());
     }
     
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
     std::cout << "Snowball: " << duration.count() / word_count << "us\n";
     
-    sb_stemmer_delete(snow_stemmer);
+    sb_stemmer_delete(eng_stemmer);
 }
 
 // Test Oleander Stemmer
 void test_ole(std::vector<std::wstring>& words) {
-    stemming::english_stem<> eng_stem;
+    stemming::english_stem<> eng_stemmmer;
     auto start = std::chrono::high_resolution_clock::now();
 
     for (auto word : words) {
-        eng_stem(word);
+        eng_stemmer(word);
     }
     /*
     for(int i = 0; i < word_count; ++i){
@@ -70,7 +70,7 @@ std::vector<std::wstring> get_wstr(const std::string& file_name) {
     std::string word;
     
     while (std::getline(dict, word)) {    
-        words.push_back(stringToWString(word));
+        words.push_back(str_to_wstr(word));
         ++word_count;
     }
     

@@ -86,8 +86,8 @@ int test() {
         dif_found = false;
     }
 
-    std::cout << "Snowball Average Word Len: " << snow_wc / line_count << "\n";
-    std::cout << "Ole Average Word Len: " << ole_wc / line_count << "\n";
+    std::cout << "Snowball Average Word Len: " << (float)snow_wc / line_count << "\n";
+    std::cout << "Ole Average Word Len: " << (float)ole_wc / line_count << "\n";
 
     // Clean up
     sb_stemmer_delete(snow_stemmer);

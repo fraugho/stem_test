@@ -9,3 +9,6 @@ g++ -I../../lib/snow_lib/include -L../../lib/snow_lib -o p perf.cpp -lstemmer
 
 perf2.cpp
 g++ -I../../lib/snow_lib/include -L../../lib/snow_lib -o p perf2.cpp -lstemmer
+
+words.txt
+https://github.com/dwyl/english-words/tree/master
