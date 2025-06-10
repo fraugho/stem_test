@@ -1,6 +1,11 @@
-g++ perf.cpp -o p -I/opt/homebrew/Cellar/snowball/3.0.1/include -L/opt/homebrew/Cellar/snowball/3.0.1/lib -lstemmer
+compare.cpp
+g++ -I../../lib/snow_lib/include -L../../lib/snow_lib -o c compare.cpp -lstemmer
 
-g++ perf2.cpp -o p -I/opt/homebrew/Cellar/snowball/3.0.1/include -L/opt/homebrew/Cellar/snowball/3.0.1/lib -lstemmer
+compare2.cpp
+g++ -I../../lib/snow_lib/include -L../../lib/snow_lib -o c compare2.cpp -lstemmer
 
+perf.cpp
+g++ -I../../lib/snow_lib/include -L../../lib/snow_lib -o p perf.cpp -lstemmer
 
-g++ compare.cpp -o c -I/opt/homebrew/Cellar/snowball/3.0.1/include -L/opt/homebrew/Cellar/snowball/3.0.1/lib -lstemmer
+perf2.cpp
+g++ -I../../lib/snow_lib/include -L../../lib/snow_lib -o p perf2.cpp -lstemmer
