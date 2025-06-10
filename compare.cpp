@@ -1,11 +1,10 @@
-
 #include <stdio.h>
 #include <string.h>
 #include <libstemmer.h>
 #include <fstream>
 #include <iostream>
 #include <codecvt>
-#include "../../../lib/cpp/ole/src/english_stem.h"
+#include "ole/english_stem.h"
 
 int test();
 
@@ -24,7 +23,7 @@ int test() {
     std::string word;
 
     // CSV
-    std::ofstream output_file("stemming_results.csv");
+    std::ofstream output_file("stem_results.csv");
     if (!output_file.is_open()) {
         std::cerr << "Error opening file!" << std::endl;
         return 1;
