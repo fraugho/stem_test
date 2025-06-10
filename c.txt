@@ -1,3 +1,6 @@
 g++ perf.cpp -o p -I/opt/homebrew/Cellar/snowball/3.0.1/include -L/opt/homebrew/Cellar/snowball/3.0.1/lib -lstemmer
 
 g++ perf2.cpp -o p -I/opt/homebrew/Cellar/snowball/3.0.1/include -L/opt/homebrew/Cellar/snowball/3.0.1/lib -lstemmer
+
+
+g++ compare.cpp -o c -I/opt/homebrew/Cellar/snowball/3.0.1/include -L/opt/homebrew/Cellar/snowball/3.0.1/lib -lstemmer

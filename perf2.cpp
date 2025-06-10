@@ -14,6 +14,8 @@ void test_ole(const std::vector<std::wstring>& words);
 std::vector<std::wstring> get_wstr(const std::string& file_name);
 void test();
 
+int word_count = 0;
+
 int main() {
     test();
     return 0;
@@ -36,24 +38,29 @@ void test_snow(const std::vector<std::wstring>& words) {
     }
     
     auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    std::cout << "Snowball: " << duration.count() << "us\n";
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+    std::cout << "Snowball: " << duration.count() / word_count << "us\n";
     
     sb_stemmer_delete(snow_stemmer);
 }
 
 // Test Oleander Stemmer
-void test_ole(const std::vector<std::wstring>& words) {
+void test_ole(std::vector<std::wstring>& words) {
     stemming::english_stem<> eng_stem;
     auto start = std::chrono::high_resolution_clock::now();
-    
+
     for (auto word : words) {
         eng_stem(word);
     }
+    /*
+    for(int i = 0; i < word_count; ++i){
+        eng_stem(words[i]);
+    }
+     * */
     
     auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    std::cout << "Oleander: " << duration.count() << "us\n";
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+    std::cout << "Oleander: " << duration.count() / word_count << "us\n";
 }
 
 // Read words from a file into a vector of wide strings
@@ -64,6 +71,7 @@ std::vector<std::wstring> get_wstr(const std::string& file_name) {
     
     while (std::getline(dict, word)) {    
         words.push_back(stringToWString(word));
+        ++word_count;
     }
     
     return words;

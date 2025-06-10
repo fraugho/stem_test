@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>  // Include this for strlen
 #include <libstemmer.h>
+#include "../../../lib/cpp/ole/src/english_stem.h"
 
 int main() {
     const char *word = "running";
@@ -24,4 +25,16 @@ int main() {
 
     sb_stemmer_delete(stemmer);
     return 0;
+}
+
+void ole_stem(){
+    // the word to be stemmed
+    std::wstring word(L"documentation");
+
+    stemming::english_stem<> StemEnglish;
+    std::wcout << L"(English) Original text: " << word.c_str() << std::endl;
+
+    StemEnglish(word);
+
+    std::wcout << L"(English) Stemmed text: " << word.c_str() << std::endl;
 }
