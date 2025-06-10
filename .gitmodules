@@ -1,0 +1,3 @@
+[submodule "snow"]
+	path = snow
+	url = https://github.com/snowballstem/snowball.git
