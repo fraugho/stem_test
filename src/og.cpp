@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>  // Include this for strlen
 #include <libstemmer.h>
-#include "../../../lib/cpp/ole/src/english_stem.h"
+#include "../lib/oleander/english_stem.h"
 
 int main() {
     const char *word = "running";

@@ -7,9 +7,9 @@
 #include <locale>
 #include <iomanip>
 #include "libstemmer.h"
-#include "../lib/ole/english_stem.h"
-#include "../lib/ole/french_stem.h"
-#include "../lib/ole/russian_stem.h"
+#include "../lib/oleander/english_stem.h"
+#include "../lib/oleander/french_stem.h"
+#include "../lib/oleander/russian_stem.h"
 
 enum Language {
     English,

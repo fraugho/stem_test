@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <codecvt>
-#include "../../lib/ole/french_stem.h"
+#include "../../lib/oleander/french_stem.h"
 #include <cwchar>
 
 int test();

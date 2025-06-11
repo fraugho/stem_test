@@ -1,11 +1,11 @@
 compare.cpp
-g++ -I../lib/snow_lib/include -L../lib/snow_lib -o c compare.cpp -lstemmer
+g++ -I../lib/snowball/include -L../lib/snowball -o c compare.cpp -lstemmer
 
 test.cpp
-g++ -I../lib/snow_lib/include -L../lib/snow_lib -o t test.cpp -lstemmer
+g++ -I../lib/snowball/include -L../lib/snowball -o t test.cpp -lstemmer
 
 perf.cpp
-g++ -I../lib/snow_lib/include -L../lib/snow_lib -o p perf.cpp -lstemmer
+g++ -I../lib/snowball/include -L../lib/snowball -o p perf.cpp -lstemmer
 
 eng.txt
 https://github.com/dwyl/english-words/tree/master
