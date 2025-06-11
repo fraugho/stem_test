@@ -85,35 +85,41 @@ void test_snowball(const std::vector<std::wstring>& words, const std::string& la
 void test_oleander(std::vector<std::wstring> words, Language lang) {
     std::string lang_name;
     auto start = std::chrono::high_resolution_clock::now();
+    auto end = std::chrono::high_resolution_clock::now();
     
     switch(lang) {
         case English: {
             lang_name = "English";
             stemming::english_stem<> eng_stemmer;
+            start = std::chrono::high_resolution_clock::now();
             for (auto& word : words) {
                 eng_stemmer(word);
             }
+            end = std::chrono::high_resolution_clock::now();
             break;
         }
         case French: {
             lang_name = "French";
             stemming::french_stem<> fre_stemmer;
+            start = std::chrono::high_resolution_clock::now();
             for (auto& word : words) {
                 fre_stemmer(word);
             }
+            end = std::chrono::high_resolution_clock::now();
             break;
         }
         case Russian: {
             lang_name = "Russian";
             stemming::russian_stem<> rus_stemmer;
+            start = std::chrono::high_resolution_clock::now();
             for (auto& word : words) {
                 rus_stemmer(word);
             }
+            end = std::chrono::high_resolution_clock::now();
             break;
         }
     }
     
-    auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
     
     double avg_time = static_cast<double>(duration.count()) / words.size();
@@ -163,13 +169,12 @@ void profile_language(const LanguageConfig& config) {
     }
     
     std::cout << "Loaded " << words.size() << " words from " << config.data_file << std::endl;
-    
-    // Test Oleander first (it modifies the words in-place)
-    std::vector<std::wstring> words_copy = words; // Make a copy for Oleander
-    test_oleander(words_copy, config.lang);
-    
+
     // Test Snowball (doesn't modify input)
     test_snowball(words, config.snowball_name);
+    
+    // Test Oleander first (it modifies the words in-place)
+    test_oleander(words, config.lang);
 }
 
 // Run tests for all languages
