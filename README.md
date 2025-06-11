@@ -1,5 +1,30 @@
 # stem_test
 
-compile command
+compare.cpp
+g++ -I../lib/snowball/include -L../lib/snowball -o c compare.cpp -lstemmer
+clang++ -I../lib/snowball/include -L../lib/snowball -o c compare.cpp -lstemmer
+x86_64-w64-mingw32-g++ -static -static-libgcc -static-libstdc++ -I../lib/snowball/include -o c.exe compare.cpp ../lib/snowball/libstemmer.a
 
-g++ -I../../lib/snow_lib/include -L../../lib/snow_lib -o "OUTPUT" "FILE.cpp" -lstemmer
+test.cpp
+g++ -I../lib/snowball/include -L../lib/snowball -o t test.cpp -lstemmer
+clang++ -I../lib/snowball/include -L../lib/snowball -o t test.cpp -lstemmer
+x86_64-w64-mingw32-g++ -static -static-libgcc -static-libstdc++ -I../lib/snowball/include -o t.exe test.cpp ../lib/snowball/libstemmer.a
+
+perf.cpp
+g++ -I../lib/snowball/include -L../lib/snowball -o p perf.cpp -lstemmer
+clang++ -I../lib/snowball/include -L../lib/snowball -o p perf.cpp -lstemmer
+x86_64-w64-mingw32-g++ -static -static-libgcc -static-libstdc++ -I../lib/snowball/include -o p.exe perf.cpp ../lib/snowball/libstemmer.a
+
+build
+sudo dnf install mingw64-gcc mingw64-gcc-c++
+make clean
+make CC=x86_64-w64-mingw32-gcc EXEEXT=.exe
+
+eng.txt
+https://github.com/dwyl/english-words/tree/master
+
+rus.txt
+https://github.com/danakt/russian-words
+
+fre.txt
+https://github.com/Taknok/French-Wordlist/tree/master
