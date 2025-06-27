@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <string.h>
-#include "libstemmer.h"
-#include <fstream>
 #include <iostream>
 #include <codecvt>
-#include "../../lib/oleander/french_stem.h"
 #include <cwchar>
+
+#include "../lib/snowball/include/libstemmer.h"
+#include "../lib/snowball/runtime/api.h"
+#include "../lib/snowball/libstemmer/modules_utf8.h"
+
+#include "../lib/oleander/french_stem.h"
 
 int test();
 

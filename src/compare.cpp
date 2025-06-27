@@ -4,7 +4,11 @@
 #include <iostream>
 #include <codecvt>
 #include <locale>
-#include "libstemmer.h"
+
+#include "../lib/snowball/include/libstemmer.h"
+#include "../lib/snowball/runtime/api.h"
+#include "../lib/snowball/libstemmer/modules_utf8.h"
+
 #include "../lib/oleander/english_stem.h"
 #include "../lib/oleander/french_stem.h"
 #include "../lib/oleander/russian_stem.h"

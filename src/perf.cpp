@@ -6,7 +6,11 @@
 #include <codecvt>
 #include <locale>
 #include <iomanip>
-#include "libstemmer.h"
+
+#include "../lib/snowball/include/libstemmer.h"
+#include "../lib/snowball/runtime/api.h"
+#include "../lib/snowball/libstemmer/modules_utf8.h"
+
 #include "../lib/oleander/english_stem.h"
 #include "../lib/oleander/french_stem.h"
 #include "../lib/oleander/russian_stem.h"
@@ -79,6 +83,63 @@ void test_snowball(const std::vector<std::wstring>& words, const std::string& la
               << duration.count() << " μs total" << std::endl;
     
     sb_stemmer_delete(stemmer);
+}
+
+// Test Snowball Stemmer
+void test_sn_snowball(std::vector<std::wstring> words, Language lang){
+    struct SN_env * stem;
+    auto start = std::chrono::high_resolution_clock::now();
+    auto end = std::chrono::high_resolution_clock::now();
+    std::string lang_name;
+    
+    switch(lang) {
+        case English: {
+            lang_name = "English";
+            stem = english_UTF_8_create_env();
+            start = std::chrono::high_resolution_clock::now();
+            for (auto& word : words) {
+                SN_set_current(stem, word.length(), (const symbol *)word.c_str());
+                english_UTF_8_stem(stem);
+                stem->p[stem->l] = 0;
+            }
+            end = std::chrono::high_resolution_clock::now();
+            english_UTF_8_close_env(stem);
+            break;
+        }
+        case French: {
+            lang_name = "French";
+            stem = english_UTF_8_create_env();
+            stem = russian_UTF_8_create_env();
+            start = std::chrono::high_resolution_clock::now();
+            for (auto& word : words) {
+                SN_set_current(stem, word.length(), (const symbol *)word.c_str());
+                russian_UTF_8_stem(stem);
+                stem->p[stem->l] = 0;
+            }
+            end = std::chrono::high_resolution_clock::now();
+            french_UTF_8_close_env(stem);
+            break;
+        }
+        case Russian: {
+            lang_name = "Russian";
+            stem = french_UTF_8_create_env();
+            start = std::chrono::high_resolution_clock::now();
+            for (auto& word : words) {
+                SN_set_current(stem, word.length(), (const symbol *)word.c_str());
+                french_UTF_8_stem(stem);
+                stem->p[stem->l] = 0;
+            }
+            end = std::chrono::high_resolution_clock::now();
+            russian_UTF_8_close_env(stem);
+            break;
+        }
+    }
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    
+    double avg_time = static_cast<double>(duration.count()) / words.size();
+    std::cout << std::fixed << std::setprecision(3);
+    std::cout << "SN Snowball (" << lang_name << "): " << avg_time << " μs/word, "
+              << duration.count() << " μs total" << std::endl;
 }
 
 // Test Oleander Stemmer
@@ -169,6 +230,9 @@ void profile_language(const LanguageConfig& config) {
     }
     
     std::cout << "Loaded " << words.size() << " words from " << config.data_file << std::endl;
+
+    // Test Snowball (doesn't modify input)
+    test_sn_snowball(words, config.lang);
 
     // Test Snowball (doesn't modify input)
     test_snowball(words, config.snowball_name);

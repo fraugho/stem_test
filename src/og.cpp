@@ -1,6 +1,11 @@
 #include <stdio.h>
-#include <string.h>  // Include this for strlen
-#include <libstemmer.h>
+#include <string.h>
+#include <iostream>
+
+#include "../lib/snowball/include/libstemmer.h"
+#include "../lib/snowball/runtime/api.h"
+#include "../lib/snowball/libstemmer/modules_utf8.h"
+
 #include "../lib/oleander/english_stem.h"
 
 int main() {
